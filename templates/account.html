@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static%}
+{% load home_tags %}
+{% load reviews_tags %}
+
+{% block title %} My Account {% endblock %} 
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{% static 'styles/pages/account.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<header>
+  <div class="header">
+    <a href="/">
+      <img class="left-angle" src="{% static 'images/icons/left-angle.png' %}">
+    </a>
+    Hello {{request.user}}
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    {% if request.user.is_authenticated %}
+    <section>
+      <div class="lower-section">
+        <div class="user-details">
+          <img class="profile" src="{% static 'images/icons/user-account.png' %}" alt="profile">
+          <div>
+            <div class="username">{{request.user}}</div>
+            <div class="email">{{request.user.email}}</div>
+            <a href="/account/logout">
+              <button class="logout button-primary">Logout</button>
+            </a>
+          </div>
+        </div>
+        <div class="other-details">
+          <a href="" class="orders">Orders 
+            <img class="right-angle" src="{% static 'images/icons/right-angle.png' %}" alt="right-angle">
+          </a>
+          <a href="{% url 'likes:index' %}" class="likes">Likes
+            <img class="right-angle" src="{% static 'images/icons/right-angle.png' %}" alt="right-angle">
+          </a>
+          <a href="" class="coins">My Coins
+            <img class="right-angle" src="{% static 'images/icons/right-angle.png' %}" alt="right-angle">
+          </a>
+        </div>
+      </div>
+    </section>
+    {% else %}
+      <section>
+        <div class="guest-user">
+          <div>
+            <a class="login-link" href="{% url 'account:login' %}">Login</a>
+            <span style="padding-top: .5rem;">or</span>
+            <a class="signup-link" href="{% url 'account:signup' %}">Signup</a>
+          </div>
+          <p style="margin-top: 1.5rem;">to continue to your account...</p>
+        </div>
+      </section>
+    {% endif %}
+
+    <h3 id="recent-header">Recently Viewed Products<img class="eye" src="{% static 'images/icons/view.png' %}" alt="viewed-icon"> </h3>
+
+      <section>
+        <div class="recently-viewed">
+
+          <div class="products-container">
+            {% for product in recent_products %}
+            <div class="product">
+              <div class="cart-success-message js-cart-success-message-{{product.id}}">
+                <img
+                  src="{% static 'images/icons/checkmark.png' %}"
+                  alt="checkmark-icon"
+                />
+                Cart updated
+              </div>
+                {% if product.discounted_price %}
+                  <div class="percentage-discount-top">-{{product.discounted_price|calculate_percentage_discount:product.price}}%</div>
+                {% endif %}
+              <a class="product-image" href="">
+                <img src="{{product.cover_image.url}}" alt="{{product.name}}" />
+              </a>
+              <a class="product-name" href="">{{product.name}}</a>
+              <div class="like-prices-container">
+                <div class="like-container js-like-container-{{product.id}}">
+                  <img
+                  class="heart-icon-{{product.id|likes_filter}} js-heart-icon-{{product.id|likes_filter}}-{{product.id}}"
+                  src="/static/images/icons/heart-{{product.id|likes_filter}}.png"      
+                  alt="like-icon"
+                  data-product-id="{{product.id}}"
+                  /> 
+                </div> 
+                <a class="prices" href="">
+                  {% if product.discounted_price %}
+                  <div class="discounted-price">
+                    Ksh {{product.discounted_price|prices_filter}}
+                  </div>
+                  <div class="original-price">
+                    <span class="crossed-price">Ksh {{product.price|prices_filter}}</span>
+                    <span class="percentage-discount-bottom"> -{{product.discounted_price|calculate_percentage_discount:product.price}}%</span>
+                  </div>
+                  {% else %} 
+                    Ksh {{product.price|prices_filter}} 
+                  {% endif %}
+                </a>
+              </div>
+              <a href="" class="product-rating-container">
+                <img
+                  class="product-rating-stars"
+                  src="/static/images/ratings/rating-{{product.id|average_reviews}}.png"
+                />
+                <div class="product-rating-count link-primary">
+                  ({{product.id|reviews_count}})
+                </div>
+              </a>
+              <div class="cart-buttons">
+                <button
+                  data-product-id="{{product.id}}"
+                  class="button-primary add-to-cart-button js-add-to-cart-button-{{product.id}}"
+                >
+                  Add to Cart
+                </button>
+                <div class="update-cart-buttons js-update-cart-buttons-{{product.id}}">
+                  <button
+                    class="button-primary increase-cart-button"
+                    data-product-id="{{product.id}}"
+                  >
+                    <img src="{% static 'images/icons/plus.png' %}" alt="increase-icon" />
+                  </button>
+        
+                  <a
+                    class="item-quantity link-primary js-item-quantity-{{product.id}}"
+                    href="{% url 'cart:index' %}"
+                  ></a>
+        
+                  <button
+                    class="button-primary decrease-cart-button"
+                    data-product-id="{{product.id}}"
+                  >
+                    <img src="{% static 'images/icons/minus.png' %}" alt="decrease-icon" />        
+                  </button>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <p>No Viewed Products</p>
+            {% endfor %}
+          </div>
+        
+        </div>
+      </section>
+  </div>
+</main>
+
+<script type="module" src="{% static 'scripts/account.js' %}"></script>
+
+{% endblock %}
