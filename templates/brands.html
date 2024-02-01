@@ -1,0 +1,50 @@
+{% extends 'base.html'%} 
+{% load static%} 
+{% load home_tags %}
+{% block title %} Featured Brands{% endblock %} 
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'styles/pages/brands.css' %}" />
+{% endblock %} 
+
+{% block body %}
+
+<header>
+  <div class="header">
+    <a href="/">
+      <img class="left-angle" src="{% static 'images/icons/left-angle.png' %}">
+    </a>
+    Featured Brands
+  </div>
+</header>
+
+<main>
+  <div class="brands-grid">
+    {% for brand in brands %}
+      <div class="brand-container">
+        <a href="{% url 'home:brand_products' brand.id %}" class="top-section">
+          <p class="brand-name">{{brand.brand_name}}</p>
+          <img
+            src="{{ brand.brand_logo.url }}"
+            alt="{{brand.brand_name}}"
+            class="brand-logo"
+          />
+        </a>
+        <div class="lower-section">
+          <div class="like-container js-like-container-{{brand.id}}">
+            <img class="{{brand.id|brands_likes_filter}} js-fill-{{brand.id}}" data-brand-id="{{brand.id}}" src="/static/images/icons/heart-{{brand.id|brands_likes_filter}}.png">
+          </div>
+          <div class="brand-items-count">{{brand.products.count}} Items</div>
+        </div>
+      </div>
+      {% empty %}
+      <h3 style="width: 100vw; display: flex; justify-content: center;">No Featured Brands Yet</h3>
+    {% endfor %}
+  </div>
+</main>
+
+{{likes|json_script:"likes"}}
+
+<script type="module" src="{% static 'scripts/brands.js' %}"></script>
+
+{% endblock %}

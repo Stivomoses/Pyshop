@@ -1,0 +1,139 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+
+.home-link{
+  position: absolute;
+  top: 3vh; left: 5%;
+  height: 2.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home-link:hover{
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.6),
+  inset -1px -1px 5px white;
+}
+
+.left-angle{
+  height: 70%;
+  padding: 0 .7rem;
+}
+
+.form {
+  width: 80%;
+  max-width: 500px;
+  max-height: 60vh;
+  flex-direction: column;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .3rem;
+  box-shadow: .1px .1px 4px rgba(0, 0, 0, 0.6);
+  padding: 3rem 3%;
+}
+
+h2{
+  letter-spacing: 3px;
+}
+
+.username,
+.password,
+.submit {
+  display: block;
+  height: 2rem;
+  width: 100%;
+  border-radius: 0.4rem;
+  box-shadow: .1px .1px 4px rgba(0, 0, 0, 0.5);
+  border: none;
+}
+
+.username, .password{
+  padding-left: 2.5rem;
+}
+
+.username::placeholder,
+.password::placeholder {
+  font-size: .85rem;
+  color: black;
+  letter-spacing: 2px;
+}
+
+.error-container {
+  color: rgb(196, 11, 11);
+  font-size: 1rem;
+}
+
+.submit {
+  height: 2rem;
+  width: 50%;
+  font-weight: bold;
+  margin: 1.5rem 0;
+}
+
+.submit:focus {
+  background: green;
+  border: none;
+  color: white;
+  outline: none;
+}
+
+.register-link {
+  font-size: 1rem;
+  margin-left: 5%;
+}
+
+.register {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.register:hover {
+  text-decoration: underline;
+}
+
+.field-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 80%;
+  margin-bottom: 1.5rem;
+}
+.icon-container{
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; width: 2.2rem;
+  background-color: rgb(255, 216, 20);
+  border-top-left-radius: .4rem; border-bottom-left-radius: .4rem;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.icon-container img{
+  height: 70%; 
+  
+}
+
+.show-password-container{
+  width: 70%;
+  height: 2rem;
+  color: rgb(1, 124, 182);
+  display: flex;
+  align-items: center;
+}
+
+#checkbox{
+  height: 1rem;
+  width: 1rem;
+  margin-left: .5rem;
+  cursor: pointer;
+}
+#checkbox:focus{
+  outline: none;
+  border: none;
+  box-shadow: none;
+}

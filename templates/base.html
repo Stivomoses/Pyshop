@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block title%}{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="{% static 'styles/shared/general.css'%}" />
+    {% block stylesheets %}{% endblock %}
+  </head>
+
+  <body>
+    {% block body %} {% endblock %}
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-column">
+          <h2>Connect with Us</h2>
+          <ul class="social-icons">
+            <li><a href="#" target="_blank">
+              <img class="social-logo" src="{% static 'images/icons/facebook.png' %}" alt="fb-logo"></a></li>
+            <li><a href="#" target="_blank">
+              <img class="social-logo" src="{% static 'images/icons/twitter.png' %}" alt="x-logo"></a></li>
+            <li><a href="#" target="_blank">
+              <img class="social-logo" src="{% static 'images/icons/instagram.png' %}" alt="ig-logo"></a></li>
+            <li><a href="#" target="_blank">
+              <img class="social-logo" src="{% static 'images/icons/whatsapp.png' %}" alt="Whatsapp-logo"></a></li>
+          </ul>
+        </div>
+  
+        <div class="footer-column">
+          <h2>Contact Information</h2>
+          <p>Email: info.pyshop@gmail.com</p>
+          <p>Phone: +1 (123) 456-7890</p>
+          <p> <a href="">Help & Support</a> </p>
+        </div>
+  
+        <div class="footer-column">
+          <h2>PyShop Collections</h2>
+          <p><a href="">Privacy Policy</a></p>
+          <p><a href="">Cookie Policy</a></p>
+          <p>Copyright © 2023-2030</p>
+          <p>All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

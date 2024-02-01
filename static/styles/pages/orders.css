@@ -1,0 +1,238 @@
+.main {
+  max-width: 1000px;
+  margin-top: 6rem;
+  padding: 0 1rem;
+
+  /* margin-left: auto;
+     margin-right auto;
+     Is a trick for centering an element horizontally
+     without needing a container. */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  font-weight: 600; font-size: 1.2rem;
+  position: fixed;
+  top: 0; right: 0; left: 0;
+  background-color: #eee;
+  z-index: 1000;
+  box-shadow:
+  .1px .1px 5px rgba(0, 0, 0, .8);
+}
+
+.header a{
+  height: 2rem;
+  min-width: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 3%;
+}
+
+.left-angle{
+  height: 80%;
+  padding: .3rem .6rem;
+}
+.left-angle:hover{
+  box-shadow: inset 1px 1px 3px #00000099,
+  inset -1px -1px 5px white;
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 4rem;
+}
+
+.order-header {
+  background-color: rgb(240, 242, 242);
+  border: .1rem solid rgb(213, 217, 217);
+  display: flex;
+  align-items: center; justify-content: space-between;
+  padding: 1rem;
+  border-top-left-radius: .3rem;
+  border-top-right-radius: .3rem;
+}
+
+.order-header-left-section {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.order-header-label {
+  font-weight: 600;
+}
+
+.order-date,
+.order-total {
+  margin-right: 3rem;
+}
+
+.order-header-right-section {
+  flex-shrink: 1;
+}
+
+@media (max-width: 575px) {
+  .order-header {
+    flex-direction: column;
+    align-items: start;
+    line-height: 1.5rem;
+    padding: .8rem;
+  }
+
+  .order-header-left-section {
+    flex-direction: column;
+  }
+
+  .order-header-label {
+    margin-right: .5rem;
+  }
+
+  .order-date,
+  .order-total {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    margin-right: 0;
+  }
+
+  .order-header-right-section {
+    display: grid;
+    grid-template-columns: auto 1fr;
+  }
+}
+
+.order-details-grid {
+  padding: 2rem 1rem;
+  border: .1rem solid rgb(213, 217, 217);
+  border-top: none;
+  border-bottom-left-radius: .3rem;
+  border-bottom-right-radius: .3rem;
+
+  display: grid;
+  grid-template-columns: 5.5rem 1fr 10rem;
+  column-gap: 1.5rem;
+  row-gap: 3rem;
+  align-items: center;
+}
+
+@media (max-width: 800px) {
+  .order-details-grid {
+    grid-template-columns: 8rem 1fr;
+    row-gap: 0;
+    padding-bottom: 1rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .order-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.product-image-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center; align-items: start;
+}
+
+.product-image-container img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.product-name {
+  font-weight: 700;
+  margin-bottom: .4rem;
+}
+
+.product-delivery-date {
+  margin-bottom: .1rem;
+}
+
+.product-quantity {
+  margin-bottom: 1rem;
+}
+
+.buy-again-button {
+  padding: .4rem;
+  border-radius: .4rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center; justify-content: center;
+}
+
+.buy-again-icon {
+  width: 1.5rem;
+  margin-right: .5rem;
+}
+
+.product-actions {
+  align-self: start;
+}
+
+.track-package-button {
+  width: 100%;
+  font-size: 1rem;
+  padding: .5rem;
+}
+.track-package-button:hover{
+  background-color: green;
+  color: white;
+}
+
+@media (max-width: 800px) {
+  .buy-again-button {
+    margin-bottom: .7rem;
+  }
+
+  .product-actions {
+    /* grid-column: 2 means this element will be placed
+       in column 2 in the grid. (Normally, the column that
+       an element is placed in is determined by the order
+       of the elements in the HTML. grid-column overrides
+       this default ordering). */
+    grid-column: 2;
+    margin-bottom: 2rem;
+  }
+
+  .track-package-button {
+    width: 8rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .product-image-container {
+    margin-bottom: 1rem;
+    align-items: center;
+  }
+
+  .product-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .buy-again-button {
+    width: 100%;
+    padding: .5rem;
+  }
+
+  .product-actions {
+    /* grid-column: auto; undos grid-column: 2; from above.
+       This element will now be placed in its normal column
+       in the grid. */
+    grid-column: auto;
+    margin-bottom: 3rem;
+  }
+
+  .track-package-button {
+    width: 100%;
+    padding: .7rem;
+  }
+}

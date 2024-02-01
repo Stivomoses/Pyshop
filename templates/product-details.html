@@ -1,0 +1,79 @@
+{% extends 'base.html'%} {% load static%} {% block title%}{{product.name}}
+{%endblock%} {% block stylesheets %}<link
+  rel="stylesheet"
+  href="{% static 'styles/pages/product-details.css'%}"
+/>{%endblock%} {% block body %}
+
+<div class="path">
+  <a href="/">Home</a> >
+  <a href="/products">Products</a> > {{product.name}}
+</div>
+
+<div class="container">
+  <div class="product-details-container">
+    <div class="left">
+      <div class="big-img">
+        <img src="../media/{{ product.cover_image}}" />
+      </div>
+      <div class="small-images-container">
+        <div class="small-img">
+          <img src="../media/{{ product.cover_image}}" />
+        </div>
+        <div class="small-img">
+          <img src="../media/{{ product.cover_image}}" />
+        </div>
+        <div class="small-img">
+          <img src="../media/{{ product.cover_image}}" />
+        </div>
+        <div class="small-img">
+          <img src="../media/{{ product.cover_image}}" />
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="product-name">{{product.name}}</div>
+      <div class="product-price">Ksh {{product.price}}</div>
+
+      <div class="product-rating-container">
+        <img
+          class="product-rating-stars"
+          src="{% static 'images/ratings/rating-45.png' %}"
+        />
+        <div class="product-rating-count link-primary">250</div>
+      </div>
+
+      <div class="size-container">
+        Size:
+        <div class="size">S</div>
+        <div class="size">M</div>
+        <div class="size">L</div>
+        <div class="size">XL</div>
+        <div class="size">XXL</div>
+      </div>
+
+      <div class="product-quantity-container">
+        Quantity:
+        <select data-product-id="{{product.id}}">
+          <option value="">--</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <div class="buttons-container">
+        <button class="add-to-cart-btn button-primary">Add to Cart</button>
+        <button class="buy-now-btn button-primary">Buy Now</button>
+      </div>
+    </div>
+  </div>
+  <div class="other-details-container">other details</div>
+</div>
+
+{% endblock %}

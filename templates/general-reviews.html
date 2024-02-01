@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load reviews_tags %}
+{% block title %} Reviews {% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'styles/pages/reviews/general-reviews.css' %}" />
+{% endblock %}
+
+{% block body %}
+
+<header>
+  <div class="header">
+    <a href="/">
+      <img class="left-angle" src="{% static 'images/icons/left-angle.png' %}">
+    </a>
+    Reviews and Ratings
+  </div>
+</header>
+
+<main>
+  <div class="wrapper">
+    <div class="top-section-container">
+      {% if not isreviewed %}
+      {% if request.user.is_authenticated %}
+      <div class="add-review">
+        <div class="success"> 
+          <img src="{% static 'images/icons/checkmark.png' %}"/>
+          Review added successfully
+        </div>
+        <div class="title">Rate our services</div>
+        <div class="stars-container-img">
+          <img class="img-stars js-star-0" style="display: block;" src="{% static 'images/ratings/rating-0.0.png' %}">
+          <img class="img-stars js-star-1" src="{% static 'images/ratings/rating-1.0.png' %}">
+          <img class="img-stars js-star-2" src="{% static 'images/ratings/rating-2.0.png' %}">
+          <img class="img-stars js-star-3" src="{% static 'images/ratings/rating-3.0.png' %}">
+          <img class="img-stars js-star-4" src="{% static 'images/ratings/rating-4.0.png' %}">
+          <img class="img-stars js-star-5" src="{% static 'images/ratings/rating-5.0.png' %}">
+        </div>
+        <div class="stars-container-numbers">Stars: 
+          <span data-value="1" class="star">1</span>
+          <span data-value="2" class="star">2</span>
+          <span data-value="3" class="star">3</span>
+          <span data-value="4" class="star">4</span>
+          <span data-value="5" class="star">5</span>
+        </div>
+        <div class="comment-container">
+          <textarea name="comment" id="comment" cols="30" rows="5" placeholder="Add Comment..."></textarea>
+        </div>
+    
+        <input type="submit" value="Post" class="submit button-primary">
+      </div>
+      {% else %}
+      <div class="add-review">
+        <div>
+          <a href="{% url 'account:signup' %}" class="link-primary" style="font-weight: 600;">Signup</a>
+          or
+          <a href="{% url 'account:login' %}" class="link-primary" style="font-weight: 600;">Login</a>
+        </div>
+        <span class="review-message button-primary">
+          <img src="{% static 'images/icons/plus.png' %}">
+          to Add a Review</span>
+      </div>
+      {% endif %}
+      {% endif %}
+    
+      <div class="averages">
+        <div class="left-section">
+          <div class="average-count">{{averagerating}}<span class="slash">/</span>5</div>
+          <div class="average-stars">
+            <img src="/static/images/ratings/rating-{{averagerating|average_filter}}.png">
+          </div>
+          <div>{{totalreviews}} ratings</div>
+        </div>
+        <div class="right-section">
+          <div class="star-container">5 <span class="star-count">({{fivestars}})</span> <div class="graph-container"><div class="graph js-graph-5"></div></div> </div>
+          <div class="star-container">4 <span class="star-count">({{fourstars}})</span> <div class="graph-container"><div class="graph js-graph-4"></div></div> </div>
+          <div class="star-container">3 <span class="star-count">({{threestars}})</span> <div class="graph-container"><div class="graph js-graph-3"></div></div> </div>
+          <div class="star-container">2 <span class="star-count">({{twostars}})</span> <div class="graph-container"><div class="graph js-graph-2"></div></div> </div>
+          <div class="star-container">1 <span class="star-count">({{onestars}})</span> <div class="graph-container"><div class="graph js-graph-1"></div></div> </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="reviews-container">
+      <div class="title">What our customers say about us ?</div>
+      {% for review in reviews %}
+      <div class="review">
+        <div class="top-section">
+          <img src="/static/images/ratings/rating-{{review.stars}}.0.png" alt="rating-stars">
+          {{review.created_at}}
+        </div>
+        <div>
+          {{review.comment}}
+        </div>
+        <div class="user">By {{review.user}}</div>
+      </div>
+      {% empty %}
+        <div class="no-review">No reviews yet</div>
+      {% endfor %}
+    </div>
+  </div>
+  
+</main>
+
+{{totalreviews|json_script:"totalreviews"}}
+{{fivestars|json_script:"fivestars"}}
+{{fourstars|json_script:"fourstars"}}
+{{threestars|json_script:"threestars"}}
+{{twostars|json_script:"twostars"}}
+{{onestars|json_script:"onestars"}}
+
+<script type="module" src="{% static 'scripts/general-reviews.js' %}"></script>
+<script src="{% static 'scripts/product-reviews.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,170 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% load home_tags %}
+{% block title%} Cart {% endblock %}
+
+{% block stylesheets %}
+<link
+  rel="stylesheet"
+  href="{% static 'styles/pages/cart/cart-header.css' %}"
+/>
+<link rel="stylesheet" href="{% static 'styles/pages/cart/cart.css' %}" />
+{%endblock%} 
+
+{% block body %}
+<header>
+  <div class="header">
+    <a class="header-left-section" href="/">
+      <img class="left-angle" src="{% static 'images/icons/left-angle.png' %}">
+    </a>
+  
+    <div class="header-middle-section">
+      Cart (<a
+        class="header-items-count link-primary"
+        href="#cart-products-container"
+    >
+        {% if cart_quantity == 0 %}
+        no item 
+        {% elif cart_quantity == 1 %} 
+        1 item
+        {% else %} 
+        {{cart_quantity}} items 
+        {% endif %}
+      </a
+      >)
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="main">
+    {% if cart_items %}
+    <h3>Review your order</h3>
+    <div class="checkout-grid">
+      <div class="cart-products-container" id="cart-products-container">
+        <button class="empty-cart-button button-primary">
+          <img src="{% static 'images/icons/delete.png' %}" alt="delete-icon" />
+          Empty the Cart
+        </button>
+        {% for item in cart_items %}
+        <div class="cart-item-container js-cart-item-container-{{item.id}} js-cart-item-container-{{item.product.id}}">
+          <div
+            class="cart-success-message js-cart-success-message-{{item.product.id}}"
+          >
+            <img
+              src="{% static 'images/icons/checkmark.png' %}"
+              alt="checkmark-icon"
+            />
+            Cart Updated Successfully
+          </div>
+          
+            <a href="" class="product-image-container">
+              {% if item.image_variation %}
+              <img
+                class="product-image"
+                src="{{item.image_variation.image.url}}"
+              />
+              {% else %}
+              <img
+              class="product-image"
+              src="{{item.product.cover_image.url}}"
+            />
+              {% endif %}
+            </a>
+  
+            <div class="cart-item-details">
+              <a href="" class="product-name">{{item.product.name}}</a>
+              <a href="" class="product-price">
+                {% if item.product.discounted_price %} 
+                Ksh {{item.product.discounted_price|prices_filter}} 
+                {% else %} 
+                Ksh {{item.product.price|prices_filter}} 
+                {% endif %}
+              </a>
+              
+              <div class="update">
+                <img
+                  class="increase-button button-primary"
+                  data-product-id="{{item.product.id}}"
+                  src="{% static 'images/icons/plus.png' %}"
+                  alt="add-icon"
+                />
+
+                <div class="product-quantity js-count-{{item.product.id}}">
+                    {{item.quantity}}                
+                  </div>
+
+                <img
+                  class="decrease-button button-primary"
+                  data-product-id="{{item.product.id}}"
+                  src="{% static 'images/icons/minus.png' %}"
+                  alt="minus-icon"
+                />
+                  {% if item.size %}
+                  <div class="size">Size: {{item.size.size}}</div>
+                  {% endif %}
+
+              </div>
+              <button class="delete-button" data-cart-id="{{item.id}}">
+                Remove
+              </button>
+            </div>
+          
+        </div>
+        {% endfor %}
+      </div>
+  
+      <div class="payment-summary">
+        <div class="payment-summary-title">Payment Summary</div>
+  
+        <div class="payment-summary-row">
+          <div class="payment-item">
+            Items (<a
+              class="summary-items-count link-primary"
+              href="#cart-products-container"
+              >{{cart_quantity}}</a
+            >)
+          </div>
+          <div class="payment-summary-money js-cart-total">
+            Ksh {{cart_price|prices_filter}}
+          </div>
+        </div>
+  
+        <div class="payment-summary-row">
+          <div class="shipping">Shipping &amp; handling:</div>
+          <div class="payment-summary-money">Ksh 99</div>
+        </div>
+  
+        <div class="payment-summary-row subtotal-row">
+          <div>Total before tax:</div>
+          <div class="payment-summary-money"></div>
+        </div>
+  
+        <div class="payment-summary-row">
+          <div>Estimated tax (10%):</div>
+          <div class="payment-summary-money"></div>
+        </div>
+  
+        <div class="payment-summary-row total-row">
+          <div>Order total:</div>
+          <div class="payment-summary-money"></div>
+        </div>
+  
+        <button class="place-order-button button-primary">
+          Place your order
+        </button>
+      </div>
+    </div>
+    {% else %}
+    <div class="empty-cart">
+      <img src="{% static 'images/icons/shopping-cart.png' %}" /> Your Cart is
+      Empty
+    </div>
+    <a href="/" class="start-shopping-button">Start Shopping</a>
+    {% endif %}
+  </div>
+</main>
+
+<script type="module" src="{% static 'scripts/cart.js' %}"></script>
+
+{%endblock%}

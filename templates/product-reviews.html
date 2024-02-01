@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static%}
+{% load reviews_tags %}
+
+{% block title %} Product Reviews {% endblock %} 
+
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'styles/pages/reviews/product-reviews.css' %}">
+{% endblock %}
+
+{% block body %}
+<header>
+  <div class="header">
+    <a href="{% url 'home:product_details' productid %}">
+      <img class="left-angle" src="{% static 'images/icons/left-angle.png' %}">
+    </a>
+    Reviews
+  </div>
+</header>
+
+<div class="container">
+  <div class="ratings-header">VERIFIED PRODUCT RATINGS ({{totalreviews}})</div>
+
+  <div class="averages">
+    <div class="left-section">
+      <div class="average-count">{{average_rating}}<span class="slash">/</span>5</div>
+      <div class="average-stars">
+        <img src="/static/images/ratings/rating-{{productid|average_reviews}}.png">
+      </div>
+      <div class="total-ratings">{{totalreviews}} ratings</div>
+    </div>
+    <div class="right-section">
+      <div class="star">5 <span class="star-count">({{fivestars}})</span> <div class="graph-container"><div class="graph js-graph-5"></div></div> </div>
+      <div class="star">4 <span class="star-count">({{fourstars}})</span> <div class="graph-container"><div class="graph js-graph-4"></div></div> </div>
+      <div class="star">3 <span class="star-count">({{threestars}})</span> <div class="graph-container"><div class="graph js-graph-3"></div></div> </div>
+      <div class="star">2 <span class="star-count">({{twostars}})</span> <div class="graph-container"><div class="graph js-graph-2"></div></div> </div>
+      <div class="star">1 <span class="star-count">({{onestars}})</span> <div class="graph-container"><div class="graph js-graph-1"></div></div> </div>
+    </div>
+  </div>
+
+  <div class="comments-header">COMMENTS FROM VERIFIED PURCHASES</div>
+
+  <div class="reviews-container">
+    {% for review in reviews %}
+    <div class="review">
+      <div class="top-section">
+        <img src="/static/images/ratings/rating-{{review.stars}}.png" alt="rating-stars">
+        {{review.created_at}}
+      </div>
+      <div>
+        {% if review.comment %}
+        {{review.comment}}
+        {% else %}
+        ...No Comment...
+        {% endif %}
+      </div>
+      <div class="user">By {{review.user}}</div>
+    </div>
+    {% empty %}
+    <div>No reviews for this product yet</div>
+    {% endfor %}
+  </div>
+</div>
+
+
+{{totalreviews|json_script:"totalreviews"}}
+{{fivestars|json_script:"fivestars"}}
+{{fourstars|json_script:"fourstars"}}
+{{threestars|json_script:"threestars"}}
+{{twostars|json_script:"twostars"}}
+{{onestars|json_script:"onestars"}}
+
+<script src="{% static 'scripts/reviews.js' %}"></script>
+
+{% endblock %}

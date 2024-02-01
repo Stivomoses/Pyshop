@@ -1,0 +1,45 @@
+.header {
+  height: 4rem;
+  min-height: 40px;
+  background-color: #eee;
+  display: flex;
+  justify-content: center; align-items: center;
+  box-shadow:
+  .1px .1px 5px rgba(0, 0, 0, .8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.header-left-section{
+  height: 2rem;
+  min-width: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 3%;
+}
+
+.left-angle{
+  height: 80%;
+  padding: .3rem .6rem;
+}
+.left-angle:hover{
+  box-shadow: inset 1px 1px 3px #00000099,
+  inset -1px -1px 5px white;
+}
+
+
+.header-middle-section {
+  text-align: center;
+  font-size: 1.2rem;
+  display: flex; align-items: center;
+}
+
+.header-items-count {
+  font-weight: 400;
+  font-size: 0.95rem;
+}

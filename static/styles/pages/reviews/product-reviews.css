@@ -1,0 +1,163 @@
+.header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  font-weight: 600;
+  font-size: 1.2rem;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4rem;
+  z-index: 1000;
+  background-color: #eee;
+  box-shadow: 0px .1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.header a{
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 3%;
+  padding: .3rem .7rem;
+}
+
+.left-angle{
+  height: 80%;
+}
+
+.header a:hover{
+  box-shadow: inset 1px 1px 3px #00000099,
+  inset -1px -1px 5px white;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4rem;
+  border-radius: .3rem;
+  padding: .5rem;
+  overflow-x: hidden;
+}
+
+.averages{
+  display: flex;
+  margin-top: 1rem;
+  background-color: white;
+  box-shadow: .1px .1px 4px rgba(0, 0, 0, .6);
+  padding: 1rem;
+  border-radius: .4rem;
+  max-width: 800px;
+  width: 80vw;
+}
+
+.left-section{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.average-count{
+  font-size: 1.8rem;
+  color: rgb(240, 136, 4);
+  font-weight: 600;
+}
+
+.slash{
+  font-weight: 100;
+}
+
+.average-stars{
+  height: 1.2rem;
+  margin: .5rem 0;
+}
+.average-stars img{
+  height: 100%;
+}
+
+.total-ratings{
+  font-size: 1rem;
+}
+
+.right-section{
+  width: 100%;
+}
+
+.star{
+  display: flex;
+  align-items: center;
+  margin-bottom: .5rem;
+  font-weight: 600;
+}
+
+.star-count{
+  width: 3rem;
+  color: rgb(100, 100, 100);
+  font-weight: 300;
+  margin-left: .2rem;
+  font-size: .8rem;
+}
+
+.graph-container{
+  min-height: .25rem;
+  background-color: #eee;
+  width: 100%;
+
+}
+.graph{
+  height: .25rem;
+  background-color: rgb(240, 136, 4);
+}
+
+.comments-header,.ratings-header{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: rgb(100, 100, 100);
+  font-weight: 600;
+  font-size: .8rem;
+  margin-bottom: 1rem;
+}
+
+.comments-header{
+  margin-top: 1rem;
+}
+
+.no-review{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+}
+
+.review{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding:  .5rem .3rem;
+  border-radius: .25rem;
+  margin-bottom: .5rem;
+}
+.review .top-section{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .85rem;
+  color: rgb(100, 100, 100);
+  margin-bottom: .5rem;
+}
+.review .top-section img{
+  height: 1rem;
+}
+.user{
+  color: rgb(100, 100, 100);
+  font-size: .85rem;
+  margin-top: .5rem;
+}

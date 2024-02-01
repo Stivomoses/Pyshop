@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% load static %} 
+{% block title %} Login {% endblock%}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'styles/pages/login.css' %}" />
+{% endblock %} 
+
+{% block body %}
+
+<main class="container">
+
+  <a class="home-link" href="/">
+    <img class="left-angle" src="{% static 'images/icons/left-angle.png' %}">
+  </a>  
+  <form method="post" action="{% url 'account:login'%}" class="form">
+    {%csrf_token%}
+
+    <h2>Login</h2>
+
+    <div class="field-container"> <div class="icon-container"><img src="{% static 'images/icons/user-account.png' %}"></div> {{form.username}}</div>
+    <div class="field-container"> <div class="icon-container"><img style="height: 60%;" src="{% static 'images/icons/lock.png' %}"></div> {{form.password}}</div>
+
+            <div class="show-password-container">
+              <label for="checkbox" style="cursor: pointer;">Show password</label><input id="checkbox" type="checkbox">
+            </div>
+
+    {% if message %}
+    <div class="error-container">{{message}}</div>
+    {% endif %}
+
+    <input type="submit" value="Login" class="submit button-primary" />
+    <p class="register-link">
+      Don't have an account?
+      <a href="{% url 'account:signup'%}" class="register link-primary"
+        >Signup</a
+      >
+    </p>
+  </form>
+</main>
+
+<script src="{% static 'scripts/login.js' %}"></script>
+
+{% endblock %}

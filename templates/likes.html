@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load reviews_tags %}
+{% load home_tags %}
+
+{% block title %} My Likes {% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'styles/pages/likes.css' %}">
+{% endblock %}
+
+{% block body %}
+ 
+<header>
+  <div class="header">
+    <a href="/">
+      <img class="left-angle" src="{% static 'images/icons/left-angle.png' %}">
+    </a>
+    My Likes
+  </div>
+</header>
+
+<main>
+
+  {% if page == 'likes' %}
+  <section>
+    <div class="filter">
+      <a class="liked-products active" href="{% url 'likes:index' %}">Liked Products</a>
+      <a class="liked-brands" href="{% url 'likes:liked_brands' %}">Liked Brands</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="products-container">
+      {% for like in likes %}
+      <div class="product js-product-{{like.product.id}}">
+        <div class="cart-success-message js-cart-success-message-{{like.product.id}}">
+          <img
+            src="{% static 'images/icons/checkmark.png' %}"
+            alt="checkmark-icon"
+          />
+          Cart updated
+        </div>
+          {% if like.product.discounted_price %}
+            <div class="percentage-discount-top">-{{like.product.discounted_price|calculate_percentage_discount:like.product.price}}%</div>
+          {% endif %}
+        <a class="product-image" href="">
+          <img src="{{like.product.cover_image.url}}" alt="{{like.product.name}}" />
+        </a>
+        <a class="product-name" href="">{{like.product.name}}</a>
+        <div class="like-prices-container">
+          <div class="like-container">
+            <img
+            class="heart-icon-fill js-heart-icon-fill-{{like.product.id}}"
+            src="{%  static 'images/icons/heart-fill.png' %}"      
+            alt="like-icon"
+            data-product-id="{{like.product.id}}"
+            /> 
+          </div>
+          <a class="prices" href="">
+            {% if like.product.discounted_price %}
+            <div class="discounted-price">
+              Ksh {{like.product.discounted_price|prices_filter}}
+            </div>
+            <div class="original-price">
+              <span class="crossed-price">Ksh {{like.product.price|prices_filter}}</span>
+              <span class="percentage-discount-bottom"> -{{like.product.discounted_price|calculate_percentage_discount:like.product.price}}%</span>
+            </div>
+            {% else %} 
+              Ksh {{like.product.price|prices_filter}} 
+            {% endif %}
+          </a>
+        </div>
+        <a href="" class="product-rating-container">
+          <img
+            class="product-rating-stars"
+            src="/static/images/ratings/rating-{{like.product.id|average_reviews}}.png"
+          />
+          <div class="product-rating-count link-primary">
+            ({{like.product.id|reviews_count}})
+          </div>
+        </a>
+        <div class="cart-buttons">
+          <button
+            data-product-id="{{like.product.id}}"
+            class="button-primary add-to-cart-button js-add-to-cart-button-{{like.product.id}}"
+          >
+            Add to Cart
+          </button>
+          <div class="update-cart-buttons js-update-cart-buttons-{{like.product.id}}">
+            <button
+              class="button-primary increase-cart-button"
+              data-product-id="{{like.product.id}}"
+            >
+              <img src="{% static 'images/icons/plus.png' %}" alt="increase-icon" />
+            </button>
+  
+            <a
+              class="item-quantity link-primary js-item-quantity-{{like.product.id}}"
+              href="{% url 'cart:index' %}"
+            ></a>
+  
+            <button
+              class="button-primary decrease-cart-button"
+              data-product-id="{{like.product.id}}"
+            >
+              <img src="{% static 'images/icons/minus.png' %}" alt="decrease-icon" />        
+            </button>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="empty-message">No Liked Products</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- BRANDS -->
+  {% else %}
+  <section>
+    <div class="filter">
+      <a class="liked-products" href="{% url 'likes:index' %}">Liked Products</a>
+      <a class="liked-brands active " href="{% url 'likes:liked_brands' %}">Liked Brands</a>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="brands-grid">
+      {% for item in brands %}
+        <div class="brand-container js-brand-{{item.brand.id}}">
+          <a href="{% url 'home:brand_products' item.brand.id %}">
+            <p class="brand-name">{{item.brand.brand_name}}</p>
+            <img
+              src="{{ item.brand.brand_logo.url }}"
+              alt="{{item.brand.brand_name}}"
+              class="brand-logo"
+            />
+          </a>
+          <div class="lower-section">
+            <div class="like-container">
+              <img class="fill js-fill-{{item.brand.id}}" data-brand-id="{{item.brand.id}}" src="{% static 'images/icons/heart-fill.png' %}">
+            </div>
+            <div class="brand-items-count">{{item.brand.products.count}} Items</div>
+          </div>
+        </div>
+        {% empty %}
+        <p class="empty-message">No Liked Brands</p>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</main>
+
+<script type="module" src="{% static 'scripts/likes.js' %}"></script>
+ 
+{% endblock %}

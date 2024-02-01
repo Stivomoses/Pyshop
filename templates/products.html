@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static%}
+{% load home_tags %} 
+{% load reviews_tags %}
+{% block title %} {{title}} {% endblock %} 
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'styles/pages/brand-products.css' %}" />
+{% endblock %} 
+
+{% block body %}
+<header>
+  <div class="header">
+    <a href="/">
+      <img class="left-angle" src="{% static 'images/icons/left-angle.png' %}">
+    </a>
+    {{title}}
+  </div>
+</header>
+
+<main style="margin-top: 5rem;">
+  <section>
+    <div class="products-container">
+      {% for product in products %}
+      <div class="product" data-category-id="{{product.category.id}}">
+        <div class="cart-success-message js-cart-success-message-{{product.id}}">
+          <img
+            src="{% static 'images/icons/checkmark.png' %}"
+            alt="checkmark-icon"
+          />
+          Cart updated
+        </div>
+          {% if product.discounted_price %}
+            <div class="percentage-discount-top">-{{product.discounted_price|calculate_percentage_discount:product.price}}%</div>
+          {% endif %}
+        <a class="product-image" href="">
+          <img src="{{product.cover_image.url}}" alt="{{product.name}}" />
+        </a>
+        <a class="product-name" href="">{{product.name}}</a>
+        <div class="like-prices-container">
+          <div class="like-container js-like-container-{{product.id}}">
+            <img
+            class="heart-icon-{{product.id|likes_filter}} js-heart-icon-{{product.id|likes_filter}}-{{product.id}}"
+            src="/static/images/icons/heart-{{product.id|likes_filter}}.png"      
+            alt="like-icon"
+            data-product-id="{{product.id}}"
+            /> 
+          </div> 
+          <a class="prices" href="">
+            {% if product.discounted_price %}
+            <div class="discounted-price">
+              Ksh {{product.discounted_price|prices_filter}}
+            </div>
+            <div class="original-price">
+              <span class="crossed-price">Ksh {{product.price|prices_filter}}</span>
+              <span class="percentage-discount-bottom"> -{{product.discounted_price|calculate_percentage_discount:product.price}}%</span>
+            </div>
+            {% else %} 
+              Ksh {{product.price|prices_filter}} 
+            {% endif %}
+          </a>
+        </div>
+        <a href="" class="product-rating-container">
+          <img
+            class="product-rating-stars"
+            src="/static/images/ratings/rating-{{product.id|average_reviews}}.png"
+          />
+          <div class="product-rating-count link-primary">
+            ({{product.id|reviews_count}})
+          </div>
+        </a>
+        <div class="cart-buttons">
+          <button
+            data-product-id="{{product.id}}"
+            class="button-primary add-to-cart-button js-add-to-cart-button-{{product.id}}"
+          >
+            Add to Cart
+          </button>
+          <div class="update-cart-buttons js-update-cart-buttons-{{product.id}}">
+            <button
+              class="button-primary increase-cart-button"
+              data-product-id="{{product.id}}"
+            >
+              <img src="{% static 'images/icons/plus.png' %}" alt="increase-icon" />
+            </button>
+  
+            <a
+              class="item-quantity link-primary js-item-quantity-{{product.id}}"
+              href="{% url 'cart:index' %}"
+            ></a>
+  
+            <button
+              class="button-primary decrease-cart-button"
+              data-product-id="{{product.id}}"
+            >
+              <img src="{% static 'images/icons/minus.png' %}" alt="decrease-icon" />        
+            </button>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="empty-message">No Products</div>
+      {% endfor %}
+    </div>
+  </section>
+  
+</main>
+
+<script type="module" src="{% static 'scripts/brand-products.js' %}"></script>
+
+{% endblock %}

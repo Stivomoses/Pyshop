@@ -1,0 +1,145 @@
+.path {
+  margin: 12vh 0 2vh 2vw;
+  font-weight: bold;
+  font-size: 1rem;
+  color: rgb(4, 172, 4);
+}
+.path a {
+  text-decoration: none;
+  color: blue;
+}
+.path a:hover {
+  color: rgb(4, 172, 4);
+}
+.path a:active {
+  color: red;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-details-container {
+  display: flex;
+  justify-content: space-evenly;
+  height: 70vh;
+  margin: 2vh 2vw;
+  border: 0.15rem solid rgb(240, 136, 4);
+}
+
+.left {
+  /* width: 50%; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 2vw;
+  align-items: center;
+  overflow: hidden;
+}
+
+.big-img {
+  width: 100%;
+  height: 78%;
+  padding-bottom: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.big-img img {
+  max-height: 100%;
+  max-width: 100%;
+  border: 0.15rem solid rgb(240, 136, 4);
+}
+.small-images-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 18%;
+  /* overflow-x: scroll; */
+}
+/* .small-images-container::-webkit-scrollbar {
+display: none;
+} */
+
+.small-img {
+  height: 100%;
+  width: 20%;
+  display: flex;
+  align-items: center;
+}
+
+.small-img img {
+  max-width: 100%;
+  max-height: 100%;
+  border: 0.1rem solid rgb(240, 136, 4);
+}
+
+.right {
+  /* width: 50%; */
+  height: 100%;
+  padding: 0 2vw;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: space-around;
+}
+
+.product-name,
+.product-price {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.product-rating-container {
+  display: flex;
+  align-items: center;
+}
+
+.product-rating-stars {
+  margin-right: 1vw;
+}
+
+.product-rating-count {
+  font-size: 1rem;
+  color: rgb(1, 124, 182);
+  cursor: pointer;
+}
+
+.size-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.size {
+  border: 0.1rem solid rgb(240, 136, 4);
+  padding: 0.5rem;
+}
+
+.product-quantity-container select {
+  margin-left: 1vw;
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.add-to-cart-btn {
+  padding: 0.5rem;
+}
+.buy-now-btn {
+  padding: 0.5rem;
+  border: 1px solid green;
+  color: white;
+  background-color: green;
+}
+
+@media (max-width: 450px) {
+  .product-details-container {
+    flex-direction: column;
+  }
+}

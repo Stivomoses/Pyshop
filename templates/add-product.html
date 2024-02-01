@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Add Product{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{% static 'styles/pages/add-product.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <h3>Add a Product</h3>
+  <label for="category">Category:</label>
+  <select name="category" class="category">
+    <option value="">__category__</option>
+    {% for category in categories %}
+    <option value="{{category.id}}">{{category}}</option>
+    {% endfor %}
+  </select>
+
+  <label for="brand">Brand:</label>
+  <select name="brand" class="brand">
+    <option value="">__brand__</option>
+    {% for brand in brands %}
+    <option value="{{brand.id}}">{{brand}}</option>
+    {% endfor %}
+  </select>
+
+  <label for="name">Name:</label>
+  <input type="text" required name="name" class="name" placeholder="Name">
+
+  <label for="price">Price:</label>
+  <input type="number" min="1" required name="price" class="price" placeholder="Price (Ksh)">
+
+  <label for="discounted-price">Discounted Price:</label>
+  <input type="number" min="1" name="discounted-price" class="discounted-price" placeholder="Discounted Price (optional)">
+
+  <label for="bargainable">Bargainable Price:</label>
+  <select name="bargainable" class="bargainable">
+    <option value="No">No</option>
+    <option value="Yes">Yes</option>
+  </select>
+
+  <input type="text" name="sizes" class="sizes" placeholder="S,M,L,XL,40,41,42,43...">
+
+  <label for="description">Description:</label>
+  <textarea name="description" class="description" cols="30" rows="10" placeholder="Describe your product...(optional)"></textarea>
+
+  <label for="cover-image">Cover Image:</label>
+  <input type="file" required name="cover-image" class="cover-image">
+
+  <label for="other-images">Other Images:</label>
+  <input type="file" multiple name="other-images" class="other-images">
+
+  <input type="submit" value="Submit" class="submit button-primary">
+
+</form>
+
+{% endblock %}
